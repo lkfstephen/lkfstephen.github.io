@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+      
+    <style>
+body {
+    font-size: 80px;
+}
+input {
+    font-size: 80px;
+}
+button {
+    font-size: 80px;
+}
+
+h1 {
+    color: maroon;
+    margin-left: 40px;
+} 
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <div id="startPage" hidden>
+      <div><span>遊戲時間: </span>  <input id="initTime" type="number" name="usr_time" value="10" /><span> sec</span></div>
+      <div><button id="start" type="button" value="start">start</button></div>
+    </div>
+    <div id="preparePage" hidden></div>
+    <div id="gamePage" hidden>
+      <div id="question"></div>
+      <div id="remainTime"></div>
+      <div>
+        <button id="correctButton" type="button">&#x2705;</button>
+        <button id="passButton" type="button">&#x274E;</button>
+      </div>
+    </div>
+    <div id="records"></div>
+    <script src="run.js"></script>
+  </body>
+</html>
