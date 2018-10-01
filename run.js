@@ -93,12 +93,14 @@ $("#start").click( function() {
 
 $.get("https://docs.google.com/spreadsheets/d/14rbQ0plJrVEKt5FGzO3v2CKibrF3q0SVConTJZvOV8E/gviz/tq?tqx=out:csv", function (data) {
     var lines = data.split("\n");
+    var mySet = {};
     for (var i = 0, len = lines.length; i < len; ++i) {
         var arr = JSON.parse("[" + lines[i] + "]");
         for (var j = 0; j < arr.length; ++j) {
             var s = arr[j].trim();
-            if (s.length > 0) {
+            if (s.length > 0 && !mySet[s]) {
                 questionSet.push(s);
+                mySet[s] = 1;
             }
         }
     }
