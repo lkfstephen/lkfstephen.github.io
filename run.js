@@ -95,14 +95,14 @@ $.get("https://docs.google.com/spreadsheets/d/14rbQ0plJrVEKt5FGzO3v2CKibrF3q0SVC
     var lines = data.split("\n");
     for (var i = 0, len = lines.length; i < len; ++i) {
         var arr = JSON.parse("[" + lines[i] + "]");
-        for (var j = 0; j < arr.len; ++j) {
+        for (var j = 0; j < arr.length; ++j) {
             var s = arr[j].trim;
             if (s.length > 0) {
                 questionSet.push(s);
             }
         }
     }
-    for (var i = questionSet.len - 1; i > 0; --i) {
+    for (var i = questionSet.length - 1; i > 0; --i) {
         var j = Math.floor((Math.random() * i));
         var t = questionSet[j];
         questionSet[j] = questionSet[i];
