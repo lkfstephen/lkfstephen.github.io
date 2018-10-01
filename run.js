@@ -33,7 +33,7 @@ function runGame() {
     var passButtonHandler = function () {
         passCount = passCount + 1;
         var td1 = $("<td></td>").text(question);
-        var td2 = $("<td></td>").html("&#x274E;");
+        var td2 = $("<td></td>").html("&#x274C;");
         var tr = $("<tr class=\"questionTr\"></tr>");
         tr.append(td1);
         tr.append(td2);
