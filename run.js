@@ -1,3 +1,5 @@
+var questionSet = [];
+
 function runGame() {
     
     var startTime = new Date();
@@ -7,10 +9,14 @@ function runGame() {
     var resultTable = $("<table><tr><td>Correct</td><td class=\"correctCount\"></td></tr><tr><td>Pass</td><td class=\"passCount\"></td></tr></table>");
     var correctCount = 0;
     var passCount = 0;
-    var question = "yo";
+    var question;
+    var toNextQuestion = function () {
+        question = questionSet.pop();
+        questionLabel.text(question);
+    };
+    toNextQuestion();
 
     remainTimeLabel.text(initTime + " sec");
-    questionLabel.text("ABC");
     $("#preparePage").hide();
     $("#gamePage").show();
     
@@ -22,6 +28,7 @@ function runGame() {
         tr.append(td1);
         tr.append(td2);
         resultTable.append(tr);
+        toNextQuestion();
     };
     var passButtonHandler = function () {
         passCount = passCount + 1;
@@ -31,6 +38,7 @@ function runGame() {
         tr.append(td1);
         tr.append(td2);
         resultTable.append(tr);
+        toNextQuestion();
     };
 
     $("#correctButton").bind("click", correctButtonHandler);
@@ -43,7 +51,6 @@ function runGame() {
         var remainTime = initTime - diff / 1000;
         if (remainTime < 0) {
             // game over.
-            console.log(resultTable.html());
             resultTable.find(".correctCount").text(correctCount);
             resultTable.find(".passCount").text(passCount);
             $("#records").prepend(resultTable);
@@ -88,12 +95,21 @@ $.get("https://docs.google.com/spreadsheets/d/14rbQ0plJrVEKt5FGzO3v2CKibrF3q0SVC
     var lines = data.split("\n");
     for (var i = 0, len = lines.length; i < len; ++i) {
         var arr = JSON.parse("[" + lines[i] + "]");
-        console.log(arr);
+        for (var j = 0; j < arr.len; ++j) {
+            var s = arr[j].trim;
+            if (s.length > 0) {
+                questionSet.push(s);
+            }
+        }
     }
-    if (data) {
-        $("#startPage").show();
-    } else {
-        $("#startPage").html("error");
-        $("#startPage").show();
+    for (var i = questionSet.len - 1; i > 0; --i) {
+        var j = Math.floor((Math.random() * i));
+        var t = questionSet[j];
+        questionSet[j] = questionSet[i];
+        questionSet[i] = t;
     }
+    $("#startPage").show();
+}).fail(function() {
+    questionSet = ["a", "b", "c", "d", "e", "f", "g", "h"];
+    $("#startPage").show();
 });

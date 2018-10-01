@@ -13,6 +13,23 @@ input {
 button {
     font-size: 80px;
 }
+#initTime {
+    width: 200px;
+}
+#question {
+    text-align: center;
+}
+#remainTime {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: gray;
+}
+#records {
+    margin-top: 200px;
+    font-size: 20px;
+}
 
 h1 {
     color: maroon;
@@ -32,8 +49,9 @@ h1 {
       <div id="question"></div>
       <div id="remainTime"></div>
       <div>
-        <button id="correctButton" type="button">&#x2705;</button>
-        <button id="passButton" type="button">&#x274E;</button>
+        <button id="correctButton" style="float:left" type="button">&#x2705;</button>
+        <button id="passButton" style="float:right"  type="button">&#x274E;</button>
+        <div style="clear:both"></div>
       </div>
     </div>
     <div id="records"></div>
