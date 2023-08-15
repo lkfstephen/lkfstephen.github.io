@@ -13,11 +13,15 @@ input {
 button {
     font-size: 80px;
 }
+#problemSet, #problemSet button {
+    font-size: 40px;
+}
 #initTime {
     width: 200px;
 }
 #question {
     text-align: center;
+    font-size: 120px;
 }
 #remainTime {
     text-align: center;
@@ -43,7 +47,7 @@ h1 {
     <div id="startPage" hidden>
       <div><span>遊戲時間: </span>  <input id="initTime" type="number" name="usr_time" value="120" /><span> sec</span></div>
       <div><button id="start" type="button" value="start">start</button></div>
-      <div>Problem Set: <button id="englishWordsProblemSet">English Words</button> <button id="chineseProblemSet">中文題目</button></div>
+      <div id="problemSet">Problem Set: <button id="englishWordsProblemSet">English Words</button> <button id="chineseProblemSet">中文題目</button></div>
     </div>
     <div id="preparePage" hidden></div>
     <div id="gamePage" hidden>
