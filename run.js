@@ -1,7 +1,7 @@
 var questionSet = [];
 
 function runGame() {
-    
+
     var startTime = new Date();
     var initTime = parseInt($("#initTime").val());
     var remainTimeLabel = $("#remainTime");
@@ -19,7 +19,7 @@ function runGame() {
     remainTimeLabel.text(initTime + " sec");
     $("#preparePage").hide();
     $("#gamePage").show();
-    
+
     var correctButtonHandler = function () {
         correctCount = correctCount + 1;
         var td1 = $("<td></td>").text(question);
@@ -43,7 +43,7 @@ function runGame() {
 
     $("#correctButton").bind("click", correctButtonHandler);
     $("#passButton").bind("click", passButtonHandler);
-    
+
     // timer
     var timerFunction = function () {
         var curTime = new Date();
@@ -90,28 +90,42 @@ $("#start").click( function() {
 });
 
 // https://docs.google.com/spreadsheets/d/14rbQ0plJrVEKt5FGzO3v2CKibrF3q0SVConTJZvOV8E/gviz/tq?tqx=out:csv
+let englishWordsURL = "https://docs.google.com/spreadsheets/d/14rbQ0plJrVEKt5FGzO3v2CKibrF3q0SVConTJZvOV8E/gviz/tq?tqx=out:csv";
+let chineseURL      = "https://docs.google.com/spreadsheets/d/1Ze8eK60_cZrY2g1ZErPi0dQjFfegN-VbC5T9ktwVsZY/gviz/tq?tqx=out:csv";
+$("#englishWordsProblemSet").click( function() {
+    loadProblemSet(englishWordsURL);
+});
+$("#chineseProblemSet").click( function() {
+    loadProblemSet(chineseURL);
+});
 
-$.get("https://docs.google.com/spreadsheets/d/14rbQ0plJrVEKt5FGzO3v2CKibrF3q0SVConTJZvOV8E/gviz/tq?tqx=out:csv", function (data) {
-    var lines = data.split("\n");
-    var mySet = {};
-    for (var i = 0, len = lines.length; i < len; ++i) {
-        var arr = JSON.parse("[" + lines[i] + "]");
-        for (var j = 0; j < arr.length; ++j) {
-            var s = arr[j].trim();
-            if (s.length > 0 && !mySet[s]) {
-                questionSet.push(s);
-                mySet[s] = 1;
+
+function loadProblemSet(url) {
+    $.get(url, function (data) {
+        questionSet = [];
+        var lines = data.split("\n");
+        var mySet = {};
+        for (var i = 0, len = lines.length; i < len; ++i) {
+            var arr = JSON.parse("[" + lines[i] + "]");
+            for (var j = 0; j < arr.length; ++j) {
+                var s = arr[j].trim();
+                if (s.length > 0 && !mySet[s]) {
+                    questionSet.push(s);
+                    mySet[s] = 1;
+                }
             }
         }
-    }
-    for (var i = questionSet.length - 1; i > 0; --i) {
-        var j = Math.floor((Math.random() * i));
-        var t = questionSet[j];
-        questionSet[j] = questionSet[i];
-        questionSet[i] = t;
-    }
-    $("#startPage").show();
-}).fail(function() {
-    questionSet = ["a", "b", "c", "d", "e", "f", "g", "h"];
-    $("#startPage").show();
-});
+        for (var i = questionSet.length - 1; i > 0; --i) {
+            var j = Math.floor((Math.random() * i));
+            var t = questionSet[j];
+            questionSet[j] = questionSet[i];
+            questionSet[i] = t;
+        }
+        $("#startPage").show();
+    }).fail(function() {
+        questionSet = ["a", "b", "c", "d", "e", "f", "g", "h"];
+        $("#startPage").show();
+    });
+}
+
+loadProblemSet(englishWordsURL);
